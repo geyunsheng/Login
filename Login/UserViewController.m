@@ -7,9 +7,10 @@
 //
 
 #import "UserViewController.h"
-#import "ASIFormDataRequest.h"
+//#import "ASIFormDataRequest.h"
 #import "LoginViewController.h"
 #import "MapViewController.h"
+#import "PostViewController.h"
 
 @interface UserViewController ()
 
@@ -31,6 +32,34 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.userOn.text = self.userEntry.loginName;
+    [self configureNotification:YES];
+}
+
+- (void)configureNotification:(BOOL)toAdd {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationTakePicture object:nil];
+    if (toAdd) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(callbackNotificationForFilter:) name:kNotificationTakePicture object:nil];
+    }
+}
+
+- (void)callbackNotificationForFilter:(NSNotification*)noti {
+    UIViewController *cameraCon = noti.object;
+    if (!cameraCon) {
+        return;
+    }
+    UIImage *finalImage = [noti.userInfo objectForKey:kImage];
+    if (!finalImage) {
+        return;
+    }
+    PostViewController *con = [[PostViewController alloc] init];
+    con.postImage = finalImage;
+    
+    if (cameraCon.navigationController) {
+        [cameraCon.navigationController pushViewController:con animated:YES];
+    } else {
+        [cameraCon presentViewController:con animated:YES completion:NULL];
+   //     [self presentViewController:nav animated:YES completion:NULL];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -50,32 +79,20 @@
 }
 */
 
-- (IBAction)logout:(id)sender
+
+
+- (IBAction)cameToCamera:(id)sender
 {
-    ASIFormDataRequest* _request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:@"https://auth.cloudeven.com/logout"]];
-    [_request setDelegate:self];
-    [_request setValidatesSecureCertificate:NO];
-    [_request setDidFinishSelector:@selector(Success:)];
-    [_request setDidFailSelector:@selector(fail:)];
-    [_request startAsynchronous];
+    SCNavigationController *nav = [[SCNavigationController alloc] init];
+    nav.scNaigationDelegate = self;
+    [nav showCameraWithParentController:self];
 }
 
 - (IBAction)cancelButton:(id)sender
 {
-    if ([self.userOn.text isEqualToString:@"No User Login"])
-    {
-       /* UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        LoginViewController* loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"loginViewController"];
-        UINavigationController *nav = [[[UINavigationController alloc] initWithRootViewController:loginViewController ]autorelease];
-        loginViewController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-        [self presentViewController:nav animated:YES completion:NULL];
-        */
-        [self dismissViewControllerAnimated:YES completion:NULL];
-    } else {
-        UIAlertView* alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Need To Logout First" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alertView show];
-        [alertView release];
-    }
+    [self.navigationController popViewControllerAnimated:YES];
+//    [self dismissViewControllerAnimated:YES completion:NULL];
+   
 }
 
 - (IBAction)goToMap:(id)sender
@@ -84,7 +101,7 @@
     {
         UIAlertView* alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Need To Login First" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alertView show];
-        [alertView release];
+   //     [alertView release];
     } else {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         MapViewController* mapView = [storyboard instantiateViewControllerWithIdentifier:@"MapViewController"];
@@ -93,33 +110,16 @@
  
 }
 
-- (void)Success:(ASIHTTPRequest *)request
-{
-/*
-    NSData *data =[request responseData];
-    NSString *htmlStr = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-    NSLog(@"%@",htmlStr);
-*/
-    if (![self.userOn.text isEqualToString:@"No User Login"])
-    {
-        self.userOn.text = @"No User Login";
-        self.welcomeLabel.text = @"";
-        UIAlertView* alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Succeed to Logout" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alertView show];
-        [alertView release];
-    }
-}
-
-- (void)fail:(ASIHTTPRequest *)request
-{
-    UIAlertView* alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Failed to Logout" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-    [alertView show];
-    [alertView release];
+- (void)didTakePicture:(SCNavigationController *)navigationController image:(UIImage *)image {
+    PostViewController *con = [[PostViewController alloc] init];
+    con.postImage = image;
+    [navigationController pushViewController:con animated:YES];
 }
 
 - (void)dealloc {
-    [_userOn release];
-    [_welcomeLabel release];
-    [super dealloc];
+//    [_userOn release];
+//    [_welcomeLabel release];
+//    [super dealloc];
+    [self configureNotification:NO];
 }
 @end

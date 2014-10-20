@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ASIFormDataRequest.h"
+//#import "ASIFormDataRequest.h"
 
-@interface LoginViewController : UIViewController <UITextFieldDelegate,ASIHTTPRequestDelegate>
+@interface LoginViewController : UIViewController <UITextFieldDelegate>
 {
     NSMutableString* _ltStr;
     NSMutableString* _exeuStr;

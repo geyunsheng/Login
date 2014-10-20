@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "UserEntry.h"
+#import "SCNavigationController.h"
 
-@interface UserViewController : UIViewController
-
-- (IBAction)logout:(id)sender;
+@interface UserViewController : UIViewController <SCNavigationControllerDelegate>
+- (IBAction)cameToCamera:(id)sender;
 - (IBAction)cancelButton:(id)sender;
 - (IBAction)goToMap:(id)sender;
 
