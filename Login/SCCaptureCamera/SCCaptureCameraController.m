@@ -549,12 +549,12 @@ void c_slideAlpha() {
 - (void)dismissBtnPressed:(id)sender {
     if (self.navigationController) {
         if (self.navigationController.viewControllers.count == 1) {
-            [self.navigationController dismissModalViewControllerAnimated:YES];
+            [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
         } else {
             [self.navigationController popViewControllerAnimated:YES];
         }
     } else {
-        [self dismissModalViewControllerAnimated:YES];
+        [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
     }
 }
 

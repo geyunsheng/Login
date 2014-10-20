@@ -31,7 +31,6 @@
 {
     [super viewDidLoad];
     _userName.delegate = self;
-    _pwdName.delegate =self;
     // Do any additional setup after loading the view.
 }
 
@@ -82,9 +81,9 @@
 
 - (IBAction)login:(id)sender
 {
-    if ((_userName.text.length == 0)||(_pwdName.text.length == 0))
+    if ((_userName.text.length == 0))
     {
-        UIAlertView* alertView = [[UIAlertView alloc]initWithTitle:nil message:@"用户名或者密码不能为空" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        UIAlertView* alertView = [[UIAlertView alloc]initWithTitle:nil message:@"用户名不能为空" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alertView show];
        // [alertView release];
         return;
