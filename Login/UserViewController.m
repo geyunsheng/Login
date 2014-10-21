@@ -87,6 +87,7 @@
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     picker.delegate = self;
+    picker.allowsEditing = YES;
     [self presentViewController:picker animated:YES completion:nil];
 #else
     SCNavigationController *nav = [[SCNavigationController alloc] init];
@@ -95,7 +96,7 @@
 #endif
 }
 
-#if CAREMA
+#if CAMERA
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
     NSLog(@"Use Photo Button Click!");

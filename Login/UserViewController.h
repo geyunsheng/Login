@@ -10,7 +10,7 @@
 #import "UserEntry.h"
 #import "SCNavigationController.h"
 
-#define CAMERA 0
+#define CAMERA 1
 
 #if CAMERA
 @interface UserViewController : UIViewController <SCNavigationControllerDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate>
