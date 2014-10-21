@@ -10,7 +10,14 @@
 #import "UserEntry.h"
 #import "SCNavigationController.h"
 
+#define CAMERA 0
+
+#if CAMERA
+@interface UserViewController : UIViewController <SCNavigationControllerDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate>
+#else
 @interface UserViewController : UIViewController <SCNavigationControllerDelegate>
+
+#endif
 - (IBAction)cameToCamera:(id)sender;
 - (IBAction)cancelButton:(id)sender;
 - (IBAction)goToMap:(id)sender;

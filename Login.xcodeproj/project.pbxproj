@@ -55,6 +55,7 @@
 		18935DE619F4C1890061F3EE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18935DE019F4C1890061F3EE /* Default-568h@2x.png */; };
 		18935DE719F4C1890061F3EE /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18935DE119F4C1890061F3EE /* Default@2x.png */; };
 		18935DE919F4C2440061F3EE /* logo80.png in Resources */ = {isa = PBXBuildFile; fileRef = 18935DE819F4C2440061F3EE /* logo80.png */; };
+		18935DEB19F5EBD50061F3EE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18935DEA19F5EBD50061F3EE /* AVFoundation.framework */; };
 		1895559819CBBACC00B1337A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1895559719CBBACC00B1337A /* CoreLocation.framework */; };
 		1895559A19CBBAD700B1337A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1895559919CBBAD700B1337A /* MapKit.framework */; };
 		1895559D19CBBAFB00B1337A /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1895559C19CBBAFB00B1337A /* MapViewController.m */; };
@@ -153,6 +154,7 @@
 		18935DE019F4C1890061F3EE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../../Default-568h@2x.png"; sourceTree = "<group>"; };
 		18935DE119F4C1890061F3EE /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../../Default@2x.png"; sourceTree = "<group>"; };
 		18935DE819F4C2440061F3EE /* logo80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo80.png; path = ../../logo80.png; sourceTree = "<group>"; };
+		18935DEA19F5EBD50061F3EE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		1895559719CBBACC00B1337A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		1895559919CBBAD700B1337A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		1895559B19CBBAFB00B1337A /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18935DEB19F5EBD50061F3EE /* AVFoundation.framework in Frameworks */,
 				1895559A19CBBAD700B1337A /* MapKit.framework in Frameworks */,
 				1895559819CBBACC00B1337A /* CoreLocation.framework in Frameworks */,
 				1897BF8F19C14D0D00DE8719 /* libz.dylib in Frameworks */,
@@ -356,6 +359,7 @@
 		1897BF5319C1389300DE8719 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				18935DEA19F5EBD50061F3EE /* AVFoundation.framework */,
 				1895559919CBBAD700B1337A /* MapKit.framework */,
 				1895559719CBBACC00B1337A /* CoreLocation.framework */,
 				1897BF8E19C14D0C00DE8719 /* libz.dylib */,
