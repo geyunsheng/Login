@@ -59,7 +59,7 @@
     picker.delegate = self;
     picker.allowsEditing = YES;
     [self presentViewController:picker animated:YES completion:nil];
-    self.userOn.hidden = YES;
+    //self.userOn.hidden = YES;
 
 }
 
@@ -69,7 +69,7 @@
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     picker.delegate = self;
     [self presentViewController:picker animated:YES completion:nil];
-    self.userOn.hidden = YES;
+    //self.userOn.hidden = YES;
 }
 
 - (IBAction)goToMap:(id)sender
