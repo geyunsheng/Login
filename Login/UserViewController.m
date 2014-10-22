@@ -10,7 +10,6 @@
 //#import "ASIFormDataRequest.h"
 #import "LoginViewController.h"
 #import "MapViewController.h"
-//#import "PostViewController.h"
 
 @interface UserViewController ()
 
@@ -59,8 +58,8 @@ bool saveFlag = YES;
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     picker.delegate = self;
     picker.allowsEditing = YES;
+    saveFlag = YES;
     [self presentViewController:picker animated:YES completion:nil];
-    //self.userOn.hidden = YES;
 
 }
 
@@ -69,9 +68,9 @@ bool saveFlag = YES;
     UIImagePickerController *picker = [[[UIImagePickerController alloc] init]autorelease];
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     picker.delegate = self;
-    [self presentViewController:picker animated:YES completion:nil];
     saveFlag = NO;
-    //self.userOn.hidden = YES;
+    [self presentViewController:picker animated:YES completion:nil];
+
 }
 
 - (IBAction)goToMap:(id)sender
