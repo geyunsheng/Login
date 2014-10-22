@@ -18,6 +18,7 @@
 
 @implementation UserViewController
 
+bool saveFlag = YES;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -69,6 +70,7 @@
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     picker.delegate = self;
     [self presentViewController:picker animated:YES completion:nil];
+    saveFlag = NO;
     //self.userOn.hidden = YES;
 }
 
@@ -83,7 +85,10 @@
 {
     NSLog(@"Use Photo Button Click!");
     self.imageCamera.image = image;
-    UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    if (YES == saveFlag)
+    {
+        UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    }
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
