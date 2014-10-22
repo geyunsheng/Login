@@ -10,7 +10,7 @@
 //#import "ASIFormDataRequest.h"
 #import "LoginViewController.h"
 #import "MapViewController.h"
-#import "PostViewController.h"
+//#import "PostViewController.h"
 
 @interface UserViewController ()
 
@@ -30,36 +30,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.userOn.text = self.userEntry.loginName;
-    [self configureNotification:YES];
-}
-
-- (void)configureNotification:(BOOL)toAdd {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationTakePicture object:nil];
-    if (toAdd) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(callbackNotificationForFilter:) name:kNotificationTakePicture object:nil];
-    }
-}
-
-- (void)callbackNotificationForFilter:(NSNotification*)noti {
-    UIViewController *cameraCon = noti.object;
-    if (!cameraCon) {
-        return;
-    }
-    UIImage *finalImage = [noti.userInfo objectForKey:kImage];
-    if (!finalImage) {
-        return;
-    }
-    PostViewController *con = [[PostViewController alloc] init];
-    con.postImage = finalImage;
-    
-    if (cameraCon.navigationController) {
-        [cameraCon.navigationController pushViewController:con animated:YES];
-    } else {
-        [cameraCon presentViewController:con animated:YES completion:NULL];
-   //     [self presentViewController:nav animated:YES completion:NULL];
-    }
+    self.userOn.text = [[[NSString alloc]initWithFormat:@"Welcome %@",self.userEntry.loginName ]autorelease];
+    //self.userOn.text = self.userEntry.loginName;
+    self.imageCamera.contentMode = UIViewContentModeScaleAspectFit;
 }
 
 - (void)didReceiveMemoryWarning
@@ -79,43 +52,53 @@
 }
 */
 
-
-
 - (IBAction)cameToCamera:(id)sender
 {
-#if CAMERA
-    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    UIImagePickerController *picker = [[[UIImagePickerController alloc] init]autorelease];
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     picker.delegate = self;
     picker.allowsEditing = YES;
     [self presentViewController:picker animated:YES completion:nil];
-#else
-    SCNavigationController *nav = [[SCNavigationController alloc] init];
-    nav.scNaigationDelegate = self;
-    [nav showCameraWithParentController:self];
-#endif
+    self.userOn.hidden = YES;
+
 }
 
-#if CAMERA
+- (IBAction)cameIntoPhoto:(id)sender
+{
+    UIImagePickerController *picker = [[[UIImagePickerController alloc] init]autorelease];
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    picker.delegate = self;
+    [self presentViewController:picker animated:YES completion:nil];
+    self.userOn.hidden = YES;
+}
+
+- (IBAction)goToMap:(id)sender
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    MapViewController* mapView = [storyboard instantiateViewControllerWithIdentifier:@"MapViewController"];
+    [self.navigationController pushViewController:mapView animated:YES];
+}
+
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
     NSLog(@"Use Photo Button Click!");
+    self.imageCamera.image = image;
     UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
     if (error != NULL) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"出错了!" message:@"存不了T_T" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
+        [alert release];
     } else {
-        SCDLog(@"保存成功");
+        NSLog(@"保存成功");
     }
 }
-#endif
 
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
     NSLog(@"Cancel Button Click!");
 	[self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
@@ -127,31 +110,9 @@
    
 }
 
-- (IBAction)goToMap:(id)sender
-{
-    if ([self.userOn.text isEqualToString:@"No User Login"])
-    {
-        UIAlertView* alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Need To Login First" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alertView show];
-   //     [alertView release];
-    } else {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        MapViewController* mapView = [storyboard instantiateViewControllerWithIdentifier:@"MapViewController"];
-        [self.navigationController pushViewController:mapView animated:YES];
-    }
- 
-}
-
-- (void)didTakePicture:(SCNavigationController *)navigationController image:(UIImage *)image {
-    PostViewController *con = [[PostViewController alloc] init];
-    con.postImage = image;
-    [navigationController pushViewController:con animated:YES];
-}
-
 - (void)dealloc {
-//    [_userOn release];
-//    [_welcomeLabel release];
-//    [super dealloc];
-    [self configureNotification:NO];
+    [_userOn release];
+    [_imageCamera release];
+    [super dealloc];
 }
 @end

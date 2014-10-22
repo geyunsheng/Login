@@ -42,13 +42,14 @@
     [self.map addAnnotation:selfLoc];
     selfLoc.title = @"Center";
     selfLoc.subtitle = @"Dalian Government";
-//    [selfLoc release];
+    [selfLoc release];
  
     _locationManager = [[CLLocationManager alloc]init];
     _locationManager.delegate =self;
     _locationManager.desiredAccuracy =kCLLocationAccuracyBest;
     _locationManager.distanceFilter =100;
     [_locationManager startUpdatingLocation];
+   // [_locationManager release];
     
     
     MKCoordinateRegion region = MKCoordinateRegionMake(selfLoc.coordinate, MKCoordinateSpanMake(0.15, 0.15));
@@ -87,7 +88,7 @@
         if (pinView == nil)
         {
             // if an existing pin view was not available, create one
-            MKPinAnnotationView* customPinView = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:homeAnnotationIdentifier];
+            MKPinAnnotationView* customPinView = [[[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:homeAnnotationIdentifier] autorelease];
             customPinView.pinColor= MKPinAnnotationColorGreen;
             customPinView.canShowCallout = YES;
             customPinView.animatesDrop = YES;
@@ -121,10 +122,10 @@
 }
 
 - (void)dealloc {
-//    [_lon release];
-//    [_lat release];
-//    [_map release];
-//    [super dealloc];
+    [_lon release];
+    [_lat release];
+    [_map release];
+    [super dealloc];
 }
 
 - (IBAction)getMyAno:(id)sender
@@ -133,6 +134,6 @@
     myAno.title = @"黑";
     myAno.subtitle = @"老子的地盘!";
     [self.map addAnnotation:myAno];
-//    [myAno release];
+    [myAno release];
 }
 @end

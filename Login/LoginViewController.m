@@ -85,12 +85,12 @@
     {
         UIAlertView* alertView = [[UIAlertView alloc]initWithTitle:nil message:@"用户名不能为空" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alertView show];
-       // [alertView release];
+        [alertView release];
         return;
     }
     [self.loginWait startAnimating];
     
-    UserEntry* userEntry = [[UserEntry alloc]init];
+    UserEntry* userEntry = [[[UserEntry alloc]init]autorelease];
     userEntry.loginName = self.userName.text;
 
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -104,6 +104,7 @@
 
 - (void)dealloc
 {
-
+    [_userName release];
+    [super dealloc];
 }
 @end

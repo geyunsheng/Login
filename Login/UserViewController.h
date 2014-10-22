@@ -8,22 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "UserEntry.h"
-#import "SCNavigationController.h"
+//#import "SCNavigationController.h"
 
-#define CAMERA 1
+@interface UserViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate>
 
-#if CAMERA
-@interface UserViewController : UIViewController <SCNavigationControllerDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate>
-#else
-@interface UserViewController : UIViewController <SCNavigationControllerDelegate>
-
-#endif
 - (IBAction)cameToCamera:(id)sender;
 - (IBAction)cancelButton:(id)sender;
 - (IBAction)goToMap:(id)sender;
-
+- (IBAction)cameIntoPhoto:(id)sender;
+@property (strong, nonatomic) IBOutlet UIImageView *imageCamera;
 @property (retain, nonatomic) IBOutlet UILabel *userOn;
-@property (retain, nonatomic) IBOutlet UILabel *welcomeLabel;
 @property (strong) UserEntry* userEntry;
 
 @end
