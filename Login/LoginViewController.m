@@ -81,24 +81,52 @@
 
 - (IBAction)login:(id)sender
 {
-    if ((_userName.text.length == 0))
+//    if ((_userName.text.length == 0))
+//    {
+//        UIAlertView* alertView = [[UIAlertView alloc]initWithTitle:nil message:@"用户名不能为空" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//        [alertView show];
+//        [alertView release];
+//        return;
+//    }
+//    [self.loginWait startAnimating];
+//    
+//    UserEntry* userEntry = [[[UserEntry alloc]init]autorelease];
+//    userEntry.loginName = self.userName.text;
+//
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//    UserViewController* userViewController = [storyboard instantiateViewControllerWithIdentifier:@"userhome"];
+//    userViewController.userEntry = userEntry;
+//    [self.navigationController pushViewController:userViewController animated:YES];
+//
+//    [self.loginWait stopAnimating];
+    
+    
+//    NSRange range = {0,2};
+//    NSMutableArray* array = [NSMutableArray arrayWithCapacity:10];
+//    [array addObject:@"hello"];
+//    [array addObject:@"hello2"];
+//    [array addObject:@"hello3"];
+//    [array addObject:@"hello4"];
+//    [array addObject:@"hello5"];
+//    [array addObject:@"hello6"];
+//    [array replaceObjectAtIndex:2 withObject:@"replace"];
+//    [array insertObject:@"insertObject" atIndex:1];
+//    [array removeObjectsInRange:range];
+//    for (NSString* str in array)
+//    {
+//        NSLog(@"%@",str);
+//    }
+    
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:@"obj1",@"key1",@"obj2",@"key2", nil];
+    NSLog(@"%lu",(unsigned long)[dic count]);
+    NSLog(@"the object of key1 is %@",[dic objectForKey:@"key1"]);
+    NSEnumerator *enumKey = [dic keyEnumerator];
+    for (NSObject* obj in enumKey)
     {
-        UIAlertView* alertView = [[UIAlertView alloc]initWithTitle:nil message:@"用户名不能为空" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alertView show];
-        [alertView release];
-        return;
+        NSLog(@"key is %@",obj);
+        NSLog(@"object is %@",[dic objectForKey:obj]);
     }
-    [self.loginWait startAnimating];
     
-    UserEntry* userEntry = [[[UserEntry alloc]init]autorelease];
-    userEntry.loginName = self.userName.text;
-
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UserViewController* userViewController = [storyboard instantiateViewControllerWithIdentifier:@"userhome"];
-    userViewController.userEntry = userEntry;
-    [self.navigationController pushViewController:userViewController animated:YES];
-    
-    [self.loginWait stopAnimating];
 }
 
 
