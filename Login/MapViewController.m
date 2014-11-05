@@ -27,7 +27,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     _map.delegate =self;
     _map.mapType =MKMapTypeStandard;
@@ -35,8 +34,6 @@
    
     self.lon.text = @"";
     self.lat.text = @"";
-    
-   // if ([CLLocationManager locationServicesEnabled])
     
     MyAnnotation* selfLoc = [[MyAnnotation alloc] initWithLocation:CLLocationCoordinate2DMake(38.909045, 121.597965)];
     [self.map addAnnotation:selfLoc];
